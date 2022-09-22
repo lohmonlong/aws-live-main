@@ -1,4 +1,3 @@
-from curses import echo
 from unittest import result
 from flask import Flask, render_template, request, flash
 from pymysql import connections
@@ -95,7 +94,7 @@ def ReadEmp():
         cursor.execute(read_sql)
         db_conn.commit()
         data = cursor.fetchall()
-        echo ("%s",data)
+        print("%s",data)
         return render_template('GetEmpOutput.html', data=data)
 
     except Exception as e: 
