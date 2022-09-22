@@ -4,7 +4,7 @@ from pymysql import connections
 import os
 import boto3
 from config import *
-from tables import Results
+# from tables import Results
 
 app = Flask(__name__)
 
@@ -94,9 +94,7 @@ def ReadEmp():
         cursor.execute(read_sql)
         db_conn.commit()
         users = cursor.fetchnall()
-        table = Results(users)
-        table.border = True
-        return render_template('GetEmpOutput.html', table = table)
+        return render_template('GetEmpOutput.html', users=users)
 
     except Exception as e: 
         return str(e)

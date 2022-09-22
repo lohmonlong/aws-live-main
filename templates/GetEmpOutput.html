@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Employee Information</title>
@@ -14,20 +14,25 @@
 
 				<div class="user">
 
-			  		Employee ID:<br> {{ user.emp_id }} <br><br>
+					<td>Employee ID</td>
+					<td>First Name</td>
+					<td>Last Name</td>
+					<td>Primary Skill</td>
+					<td>Location</td>
 
-			  		First Name:<br> {{ user.first_name }} <br><br>
+					{% for item in users %}
 
-			  		Last Name:<br> {{ user.last_name }} <br><br>
-
-			  		Primary Skil:<br> {{ user.pri_skill }} <br><br>
-
-			  		Location:<br> {{ user.location }} <br><br>
-
-			  		Image URL: <br> {{ MISSING }} <br><br>
-
+						<td>{{item.emp_id}}</td>
+						<td>{{item.first_name}}</td>
+						<td>{{item.last_name}}</td>
+						<td>{{item.pri_skill}}</td>
+						<td>{{item.location}}</td>
+	
+					{% endfor %}
+	
+					
 			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">RESET</button><br><br>
-formaction="http://3.134.115.108:80/getemp"
+<!-- formaction="http://3.134.115.108:80/getemp" -->
 			  	</div>
 
 			</form>
@@ -36,9 +41,9 @@ formaction="http://3.134.115.108:80/getemp"
 
 	</font>
 </center>
-</html> -->
+</html>
 
-<doctype html>
+<!-- <doctype html>
 	<title>List of users</title>
 	
 	<p><a href="AddEmp.html"> Add User </a></p>
@@ -55,4 +60,4 @@ formaction="http://3.134.115.108:80/getemp"
 	{% endwith %}
 	</p>
 	
-	{{ table }}
+	{{ table }} -->
