@@ -13,25 +13,28 @@
 			<form action="/reademp" autocomplete="on" method = "GET" enctype="multipart/form-data">
 
 				<div class="user">
-
-					<td>Employee ID</td>
-					<td>First Name</td>
-					<td>Last Name</td>
-					<td>Primary Skill</td>
-					<td>Location</td>
-
-					{% for item in data %}
-
-						<td>{{item.emp_id}}</td>
-						<td>{{item.first_name}}</td>
-						<td>{{item.last_name}}</td>
-						<td>{{item.pri_skill}}</td>
-						<td>{{item.location}}</td>
-	
-					{% endfor %}
-	
-					
-			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">READ</button><br><br>
+					<table>
+						<tr>
+						<td>Employee ID</td>
+						<td>First Name</td>
+						<td>Last Name</td>
+						<td>Primary Skill</td>
+						<td>Location</td>
+						</tr>
+						{% for item in data %}
+						<tr>
+							<td>{{item.emp_id}}</td>
+							<td>{{item.first_name}}</td>
+							<td>{{item.last_name}}</td>
+							<td>{{item.pri_skill}}</td>
+							<td>{{item.location}}</td>
+						</tr>
+						{% endfor %}
+							</table>
+						<p>{{data.emp_id}}</p>
+						
+						<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">READ</button><br><br>
+				</table>
 <!-- formaction="http://3.134.115.108:80/getemp" -->
 			  	</div>
 
