@@ -85,7 +85,7 @@ def AddEmp():
 
 
 
-@app.route("/reademp", methods=['GET'])
+@app.route("/reademp", methods=['GET','POST'])
 def ReadEmp():
     read_sql  = "SELECT * FROM employee"
     cursor = db_conn.cursor()
