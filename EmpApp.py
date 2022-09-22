@@ -81,6 +81,29 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
+
+
+
+@app.route("/reademp", methods=['GET'])
+def ReadEmp():
+    read_sql  = "SELECT * FROM employee"
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(read_sql)
+        db_conn.commit()
+        users = cursor.fetchnone()
+        return render_template('GetEmpOutput.html', user = users)
+
+    except Exception as e: 
+        return str(e)
+    finally:
+        cursor.close()
+
+
+
+
+
 @app.route("/removeemp", methods=['GET','POST'])
 def RemoveEmp():
     emp_id = request.form['emp_id']
@@ -104,6 +127,9 @@ def RemoveEmp():
     flash("Employee Successfully Removed")
 
     return render_template('RemoveEmpOutput.html', name=removeTarget)
+
+
+
 
 @app.route("/updateemp", methods=['GET','POST'])
 def UpdateEmp():
