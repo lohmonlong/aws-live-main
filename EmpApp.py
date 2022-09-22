@@ -6,7 +6,7 @@ import boto3
 from config import *
 # from tables import Results
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="templates")
 
 bucket = custombucket
 region = customregion
