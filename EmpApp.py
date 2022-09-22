@@ -93,8 +93,8 @@ def ReadEmp():
     try:
         cursor.execute(read_sql)
         db_conn.commit()
-        users = cursor.fetchnall()
-        return render_template('GetEmpOutput.html', users=users)
+        data = cursor.fetchall()
+        return render_template('/templates/GetEmpOutput.html', data=data)
 
     except Exception as e: 
         return str(e)
