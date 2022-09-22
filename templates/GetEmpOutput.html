@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<title>Employee Information</title>
@@ -10,7 +10,7 @@
 
 		<body bgcolor="lightgrey">
 
-			<form>
+			<form action="/reademp" autocomplete="on" method = "GET" enctype="multipart/form-data">
 
 				<div class="user">
 
@@ -26,8 +26,8 @@
 
 			  		Image URL: <br> {{ MISSING }} <br><br>
 
-			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" formaction="http://3.134.115.108:80/getemp">RESET</button><br><br>
-
+			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">RESET</button><br><br>
+formaction="http://3.134.115.108:80/getemp"
 			  	</div>
 
 			</form>
@@ -36,4 +36,23 @@
 
 	</font>
 </center>
-</html>
+</html> -->
+
+<doctype html>
+	<title>List of users</title>
+	
+	<p><a href="AddEmp.html"> Add User </a></p>
+	
+	<p>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	<ul class=flashes>
+	{% for message in messages %}
+	<li>{{ message }}</li>
+	{% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
+	</p>
+	
+	{{ table }}

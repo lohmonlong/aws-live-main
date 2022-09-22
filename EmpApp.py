@@ -1,8 +1,10 @@
+from unittest import result
 from flask import Flask, render_template, request, flash
 from pymysql import connections
 import os
 import boto3
 from config import *
+from tables import Results
 
 app = Flask(__name__)
 
@@ -83,7 +85,6 @@ def AddEmp():
 
 
 
-
 @app.route("/reademp", methods=['GET'])
 def ReadEmp():
     read_sql  = "SELECT * FROM employee"
@@ -92,16 +93,15 @@ def ReadEmp():
     try:
         cursor.execute(read_sql)
         db_conn.commit()
-        users = cursor.fetchnone()
-        return render_template('GetEmpOutput.html', user = users)
+        users = cursor.fetchnall()
+        table = Results(users)
+        table.border = True
+        return render_template('GetEmpOutput.html', table = table)
 
     except Exception as e: 
         return str(e)
     finally:
         cursor.close()
-
-
-
 
 
 @app.route("/removeemp", methods=['GET','POST'])
