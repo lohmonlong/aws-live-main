@@ -128,6 +128,9 @@ def RemoveEmp():
 
 
 @app.route("/searchemp", methods=['GET','POST'])
+def test():
+    return SearchEmp()
+
 def SearchEmp():
     emp_id = request.form['emp_id']
 
