@@ -95,7 +95,7 @@ def ReadEmp():
         db_conn.commit()
         data = cursor.fetchall()
         print("%s",data)
-        return render_template('GetEmpOutput.html', data=data)
+        return render_template('GetEmpOutput.html', data = data)
 
     except Exception as e: 
         return str(e)
