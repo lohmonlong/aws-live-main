@@ -12,23 +12,23 @@
 
             <form action="/updateemp" autocomplete="on" method = "POST" enctype="multipart/form-data"></form>
                 <div>
-                    <!-- <table>
+                    <table>
                         <tr>
-                            Employee ID: {{ row.emp_id }} ><br><br>
+                            Employee ID: {{ row[0] }} ><br><br>
                 
-                            First Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="first_name" value="{{ row['first_name'] }}"><br><br>
+                            First Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="first_name" value="{{ row[1] }}"><br><br>
                 
-                            Last Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="last_name" value="{{ row['last_name'] }}"><br><br>
+                            Last Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="last_name" value="{{ row[2] }}"><br><br>
                 
-                            Primary Skills:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="pri_skill" value="{{ row['pri_skill'] }}"><br><br>
+                            Primary Skills:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="pri_skill" value="{{ row[3] }}"><br><br>
                 
-                            Location:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="location" value="{{ row['location'] }}"><br><br>
+                            Location:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="location" value="{{ row[4] }}"><br><br>
                 
                             Image: <input type=file name="emp_image_file" style="height:25px;font-size:14pt;color:grey;"> <br><br></tr>
                         
                             <button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Update</button>
                         </tr>
-                    </table> -->
+                    </table>
                     <table>
                         <tr>
                             {% for header in headings %}
