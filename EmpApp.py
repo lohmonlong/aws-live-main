@@ -129,29 +129,26 @@ def RemoveEmp():
 
 @app.route("/searchemp", methods=['GET','POST'])
 def SearchEmp():
-    if request.method == 'POST':
-        model.save()
-    else: 
-        emp_id = request.form['emp_id']
+    emp_id = request.form['emp_id']
 
-        search_sql =("SELECT * FROM employee WHERE emp_id = %s", emp_id)
-        cursor = db_conn.cursor()
+    search_sql =("SELECT * FROM employee WHERE emp_id = %s", emp_id)
+    cursor = db_conn.cursor()
 
-        if emp_id == "": 
-            return "Please enter Employee ID"
-            
-        try: 
-            cursor.execute(search_sql)
-            db_conn.commit()
-            row = cursor.fetchone()
-            if row: 
-                return render_template('UpdateEmp.html', headings = headings, row = row)
-            else:
-                return "ID Not Found"
-        except Exception as e: 
-            print(e)
-        finally:
-            cursor.close()
+    if emp_id == "": 
+        return "Please enter Employee ID"
+        
+    try: 
+        cursor.execute(search_sql)
+        db_conn.commit()
+        row = cursor.fetchone()
+        if row: 
+            return render_template('UpdateEmpOutput.html', headings = headings, row = row)
+        else:
+            return "ID Not Found"
+    except Exception as e: 
+        print(e)
+    finally:
+        cursor.close()
 
 
 

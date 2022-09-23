@@ -29,6 +29,20 @@
                             <button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Update</button>
                         </tr>
                     </table>
+                    <table>
+                        <tr>
+                            {% for header in headings %}
+                            <th>{{header}}</th>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ row.emp_id }}
+                            </td>
+                            <td>
+                                {{ row.first_name }}
+                            </td>
+                    </table>
                 </div>
             </form>
 
