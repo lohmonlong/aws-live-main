@@ -161,7 +161,7 @@ def UpdateEmp():
     location = request.form['location']
     # emp_image_file = request.files['emp_image_file']
 
-    print(emp_id,first_name)
+    return emp_id 
 
 
     if emp_id == "": 
@@ -175,7 +175,7 @@ def UpdateEmp():
     elif location =="":
         return "Please enter Location"
 
-    insert_sql = "UPDATE employee SET first_name=%s, last_name=%s,pri_skill=%s,location=%s WHERE emp_id=%s"
+    insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s,pri_skill=%s,location=%s WHERE emp_id=%s")
     cursor = db_conn.cursor()
 
     try: 
