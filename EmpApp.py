@@ -7,6 +7,7 @@ from config import *
 # from tables import Results
 
 app = Flask(__name__, static_folder="templates")
+app.secret_key = "super secret key"
 
 bucket = custombucket
 region = customregion
@@ -110,20 +111,27 @@ def RemoveEmp():
     removeTarget = " " + emp_id
     cursor = db_conn.cursor()
 
-    cursor.execute(remove_sql,emp_id)
-    db_conn.commit()
+    try:
+        cursor.execute(remove_sql,emp_id)
+        db_conn.commit()
 
-    # s3 = boto3.resource('s3')
-    # s3.Object(bucketname,objectkey).delete() #delete the emp_image
+        flash("Employee Successfully Removed")
+        return render_template('RemoveEmpOutput.html', name = str(removeTarget))
 
-    # client = boto3.client('s3')
-    # response = client.delete_object(
-    #     Bucket =' ',
-    #     Key =' ' #delete object ocean.jpg
-    # )
+        # s3 = boto3.resource('s3')
+        # s3.Object(bucketname,objectkey).delete() #delete the emp_image
 
-    flash("Employee Successfully Removed")
-    return render_template('RemoveEmpOutput.html', name = str(removeTarget))
+        # client = boto3.client('s3')
+        # response = client.delete_object(
+        #     Bucket =' ',
+        #     Key =' ' #delete object ocean.jpg
+        # )
+
+
+    except Exception as e: 
+        return (e)
+    finally:
+        cursor.close()
 
 
 @app.route("/searchemp", methods=['GET','POST'])
@@ -188,3 +196,5 @@ def UpdateEmp():
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
+    app.debug = True
+    app.run()
