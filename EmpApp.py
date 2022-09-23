@@ -159,17 +159,17 @@ def UpdateEmp():
     last_name = request.form['last_name']
     pri_skill = request.form['pri_skill']
     location = request.form['location']
-    emp_image_file = request.files['emp_image_file']
+    # emp_image_file = request.files['emp_image_file']
 
     if emp_id == "": 
         return "Please enter Employee ID"
     elif first_name == "":
         return "Please enter First Name"
-    elif first_name =="":
+    elif last_name =="":
         return "Please enter Last Name"
-    elif first_name =="":
+    elif pri_skill =="":
         return "Please enter Primary Skill"
-    elif first_name =="":
+    elif location =="":
         return "Please enter Location"
 
     insert_sql = "UPDATE employee SET first_name=%s, last_name=%s,pri_skill=%s,location=%s WHERE emp_id=%s"
