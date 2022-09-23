@@ -185,8 +185,8 @@ def UpdateEmp():
         print(e)
     finally:
         cursor.close()     
-        
-    return render_template('UpResults.html', name = emp_name)
+
+    return render_template('UpResults.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
