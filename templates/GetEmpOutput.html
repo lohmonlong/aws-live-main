@@ -8,29 +8,12 @@
 
 		<h1 style="color: DodgerBlue">Employee Information</h1>
 
-		<body bgcolor="lightgrey">
+		<p><a href="/templates/RemoveEmp.html">Remove Emmployee</a></p>
+        <p><a href="/templates/GetEmp.html">List Employee</a></p>
 
+		<body bgcolor="lightgrey">
+ 
 				<div>
-					<!-- <table>
-						<tr>
-							<td>Employee ID</td>
-							<td>First Name</td>
-							<td>Last Name</td>
-							<td>Primary Skill</td>
-							<td>Location</td>
-						</tr>
-						{% for item in data %}
-						<tr>
-							<td>{{item.emp_id}}</td>
-							<td>{{item.first_name}}</td>
-							<td>{{item.last_name}}</td>
-							<td>{{item.pri_skill}}</td>
-							<td>{{item.location}}</td>
-						</tr>
-						{% endfor %}
-						<p>{{data}}</p>
-						
-					</table> -->
 					<table>
 						<tr>
 							{% for header in headings %}

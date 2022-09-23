@@ -22,6 +22,7 @@ db_conn = connections.Connection(
 output = {}
 table = 'employee'
 
+headings=("Employee ID","First Name","Last Name","Primary Skill","Location")
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -84,8 +85,6 @@ def AddEmp():
     return render_template('AddEmpOutput.html', name=emp_name)
 
 
-headings=("Employee ID","First Name","Last Name","Primary Skill","Location")
-
 @app.route("/reademp", methods=['GET','POST'])
 def ReadEmp():
     read_sql  = "SELECT * FROM employee"
@@ -128,37 +127,68 @@ def RemoveEmp():
     return render_template('RemoveEmpOutput.html', name=removeTarget)
 
 
-
-
-@app.route("/updateemp", methods=['GET','POST'])
-def UpdateEmp():
+@app.route("/searchemp", method=["GET"])
+def SearchEmp():
     emp_id = request.form['emp_id']
-
-    search_sql ="SELECT * FROM tbl_user WHERE user_id=%s"
+    search_sql ="SELECT * FROM employee WHERE emp_id=%s"
     cursor = db_conn.cursor()
 
     if emp_id == "": 
         return "Please enter Employee ID"
 
     try: 
-        cursor.execute(search_sql,emp_id)
+        cursor.execute(search_sql, emp_id)
         db_conn.commit()
         row = cursor.fetchone()
         if row: 
-            return render_template('UpdateEmpOutput.html',row=row)
+            return render_template("UpdateEmp.html", headings=headings, row=row)
         else:
-            return 'Error loading'
+            return "Error"
     except Exception as e: 
         print(e)
     finally:
         cursor.close()
-        conn.close()       
 
-    update_sql = "" 
-   
-    flash("Employee Updated Successfully")
 
-    return render_template('UpdateEmpOutput.html')
+
+@app.route("/updateemp", methods=['GET','POST'])
+def UpdateEmp():
+    emp_id = request.form['emp_id']
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    pri_skill = request.form['pri_skill']
+    location = request.form['location']
+    emp_image_file = request.files['emp_image_file']
+
+
+    if emp_id == "": 
+        return "Please enter Employee ID"
+    elif first_name == "":
+        return "Please enter First Name"
+    elif first_name =="":
+        return "Please enter Last Name"
+    elif first_name =="":
+        return "Please enter Primary Skill"
+    elif first_name =="":
+        return "Please enter Location"
+
+    insert_sql = "UPDATE employee SET first_name=%s, last_name=%s,pri_skill=%s,location=%s WHERE emp_id=%s"
+    cursor = db_conn.cursor()
+
+    try: 
+        cursor.execute(insert_sql,(emp_id, first_name, last_name, pri_skill, location))
+        db_conn.commit()
+
+        read_sql  = "SELECT * FROM employee"
+        cursor.execute(read_sql)
+        db_conn.commit()
+        data = cursor.fetchall()
+        return render_template('GetEmpOutput.html', headings = headings, data = data)
+
+    except Exception as e: 
+        print(e)
+    finally:
+        cursor.close()     
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
