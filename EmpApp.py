@@ -106,11 +106,11 @@ def ReadEmp():
 def RemoveEmp():
     emp_id = request.form['emp_id']
 
-    remove_sql = ("DELETE FROM employee WHERE emp_id= %s",emp_id)
+    remove_sql =("DELETE FROM employee WHERE emp_id= %s")
     removeTarget = " " + emp_id
     cursor = db_conn.cursor()
 
-    cursor.execute(remove_sql)
+    cursor.execute(remove_sql,emp_id)
     db_conn.commit()
 
     # s3 = boto3.resource('s3')
