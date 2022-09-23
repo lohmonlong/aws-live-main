@@ -172,21 +172,22 @@ def UpdateEmp():
     elif location =="":
         return "Please enter Location"
 
-    insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s,pri_skill=%s,location=%s WHERE emp_id=%s")
+    insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s WHERE emp_id=%s")
     cursor = db_conn.cursor()
 
-    try: 
+    try:
         cursor.execute(insert_sql, (first_name, last_name, pri_skill, location))
         db_conn.commit()
-        emp_name = " "+ first_name + " " + last_name
+        emp_name = " " + first_name + " " + last_name
         print("Successfully Updated")
+        return render_template('UpResults.html', name = emp_name )
 
     except Exception as e: 
-        print(e)
+        return (e)
     finally:
         cursor.close()     
-
-    return render_template('UpResults.html')
+    
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
