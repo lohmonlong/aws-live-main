@@ -176,7 +176,7 @@ def UpdateEmp():
     cursor = db_conn.cursor()
 
     try:
-        cursor.execute(insert_sql, (first_name, last_name, pri_skill, location))
+        cursor.execute(insert_sql, (first_name, last_name, pri_skill, location, emp_id))
         db_conn.commit()
         emp_name = " " + first_name + " " + last_name
         print("Successfully Updated")
