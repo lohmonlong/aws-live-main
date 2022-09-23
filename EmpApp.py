@@ -127,7 +127,7 @@ def RemoveEmp():
     return render_template('RemoveEmpOutput.html', name=removeTarget)
 
 
-@app.route("/searchemp", method=["POST"])
+@app.route("/searchemp", methods=["GET"])
 def SearchEmp():
     emp_id = request.form['emp_id']
     search_sql ="SELECT * FROM employee WHERE emp_id=%s"
