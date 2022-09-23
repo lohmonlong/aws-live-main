@@ -131,14 +131,14 @@ def RemoveEmp():
 def SearchEmp():
     emp_id = request.form['emp_id']
 
-    search_sql ="SELECT * FROM employee WHERE emp_id=%s"
+    search_sql = ("SELECT * FROM employee WHERE emp_id=%s", emp_id)
     cursor = db_conn.cursor()
 
     if emp_id == "": 
         return "Please enter Employee ID"
 
     try: 
-        cursor.execute(search_sql, emp_id)
+        cursor.execute(search_sql)
         db_conn.commit()
         row = cursor.fetchone()
         if row: 
