@@ -134,13 +134,13 @@ def SearchEmp():
     search_sql =("SELECT * FROM employee WHERE emp_id = %s",emp_id)
     cursor = db_conn.cursor()
 
-    if emp_id !="": 
-        return emp_id
+    if emp_id =="": 
+        return "Please enter Employee ID"
         
     try: 
         cursor.execute(search_sql)
         db_conn.commit()
-        row = cursor.fetchone()
+        row = cursor.fetchall()
         return render_template('UpdateEmp.html', headings = headings, row = row)
 
     except Exception as e: 
