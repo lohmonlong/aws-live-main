@@ -180,14 +180,12 @@ def UpdateEmp():
         db_conn.commit()
         emp_name = " " + first_name + " " + last_name
         print("Successfully Updated")
-        return render_template('UpResults.html', name = emp_name )
+        return render_template('UpResults.html', name = str(emp_name))
 
-    except Exception as e: 
-        return (e)
+    except Exception as e:
+        return str(e)
     finally:
-        cursor.close()     
+        cursor.close()
     
-    
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
