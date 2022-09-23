@@ -106,25 +106,24 @@ def ReadEmp():
 def RemoveEmp():
     emp_id = request.form['emp_id']
 
-    search_sql = ""
     remove_sql = ("DELETE FROM employee WHERE emp_id= %s",emp_id)
-    removeTarget = ""+emp_id
+    removeTarget = " " + emp_id
     cursor = db_conn.cursor()
 
-    cursor.execute(remove_sql,(emp_id))
+    cursor.execute(remove_sql)
     db_conn.commit()
-    s3 = boto3.resource('s3')
-    s3.Object(bucketname,objectkey).delete() #delete the emp_image
 
-    client = boto3.client('s3')
-    response = client.delete_object(
-        Bucket =' ',
-        Key =' ' #delete object ocean.jpg
-    )
+    # s3 = boto3.resource('s3')
+    # s3.Object(bucketname,objectkey).delete() #delete the emp_image
+
+    # client = boto3.client('s3')
+    # response = client.delete_object(
+    #     Bucket =' ',
+    #     Key =' ' #delete object ocean.jpg
+    # )
 
     flash("Employee Successfully Removed")
-
-    return render_template('RemoveEmpOutput.html', name=removeTarget)
+    return render_template('RemoveEmpOutput.html', name = str(removeTarget))
 
 
 @app.route("/searchemp", methods=['GET','POST'])
