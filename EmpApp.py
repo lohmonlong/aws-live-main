@@ -161,7 +161,6 @@ def UpdateEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-
     if emp_id == "": 
         return "Please enter Employee ID"
     elif first_name == "":
@@ -177,14 +176,11 @@ def UpdateEmp():
     cursor = db_conn.cursor()
 
     try: 
-        cursor.execute(insert_sql,(emp_id, first_name, last_name, pri_skill, location))
+        cursor.execute(insert_sql,(first_name, last_name, pri_skill, location))
         db_conn.commit()
-
-        read_sql  = "SELECT * FROM employee"
-        cursor.execute(read_sql)
-        db_conn.commit()
-        data = cursor.fetchall()
-        return render_template('GetEmpOutput.html', headings = headings, data = data)
+        emp_name = " "+first_name + " " + last_name
+        print("Successfully Updated")
+        return render_template('GetEmpOutput.html', headings = headings, name = emp_name)
 
     except Exception as e: 
         print(e)
