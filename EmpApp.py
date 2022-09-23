@@ -131,7 +131,7 @@ def RemoveEmp():
 def SearchEmp():
     emp_id = request.form['emp_id']
 
-    search_sql = ("""SELECT * FROM employee WHERE emp_id = %s""",(emp_id,))
+    search_sql =("SELECT * FROM employee WHERE emp_id = %s", emp_id)
     cursor = db_conn.cursor()
 
     if emp_id == "": 
@@ -142,9 +142,9 @@ def SearchEmp():
         db_conn.commit()
         row = cursor.fetchone()
         if row: 
-            return render_template("UpdateEmp.html", headings=headings, row=row)
+            return render_template('UpdateEmp.html', headings = headings, row = row)
         else:
-            return "ID not found"
+            return "ID Not Found"
     except Exception as e: 
         print(e)
     finally:
