@@ -84,6 +84,8 @@ def AddEmp():
     return render_template('AddEmpOutput.html', name=emp_name)
 
 
+headings=("Employee ID","First Name","Last Name","Primary Skill","Location")
+
 @app.route("/reademp", methods=['GET','POST'])
 def ReadEmp():
     read_sql  = "SELECT * FROM employee"
@@ -93,7 +95,7 @@ def ReadEmp():
         cursor.execute(read_sql)
         db_conn.commit()
         data = cursor.fetchall()
-        return render_template('GetEmpOutput.html', data = data)
+        return render_template('GetEmpOutput.html', headings = headings, data = data)
 
     except Exception as e: 
         return str(e)
