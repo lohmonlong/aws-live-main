@@ -128,23 +128,20 @@ def RemoveEmp():
 
 
 @app.route("/searchemp", methods=['GET','POST'])
-def test():
-    return SearchEmp()
-
 def SearchEmp():
     emp_id = request.form['emp_id']
 
-    search_sql =("SELECT * FROM employee WHERE emp_id = %s",emp_id)
+    search_sql =("SELECT * FROM employee WHERE emp_id = %s")
     cursor = db_conn.cursor()
 
     if emp_id =="": 
         return "Please enter Employee ID"
         
     try: 
-        cursor.execute(search_sql)
+        cursor.execute(search_sql,emp_id)
         db_conn.commit()
-        row = cursor.fetchall()
-        return render_template('UpdateEmp.html', headings = headings, row = row)
+        row = cursor.fetchone()
+        return render_template('UpdateEmpOutput.html', headings = headings, row = row)
 
     except Exception as e: 
         print(e)
