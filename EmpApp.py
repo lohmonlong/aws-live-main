@@ -141,8 +141,10 @@ def SearchEmp():
         cursor.execute(search_sql,emp_id)
         db_conn.commit()
         row = cursor.fetchone()
-        return render_template('UpdateEmpOutput.html', headings = headings, row = row)
-
+        if row: 
+            return render_template('UpdateEmpOutput.html',row = row)
+        else:
+            return "ID Not Found"
     except Exception as e: 
         print(e)
     finally:

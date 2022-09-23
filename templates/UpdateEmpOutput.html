@@ -14,7 +14,7 @@
                 <div>
                     <table>
                         <tr>
-                            Employee ID: {{ row[0] }} ><br><br>
+                            Employee ID:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="emp_id" value="{{ row[0] }}" readonly><br><br>
                 
                             First Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="first_name" value="{{ row[1] }}"><br><br>
                 
@@ -28,20 +28,6 @@
                         
                             <button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Update</button>
                         </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            {% for header in headings %}
-                            <th>{{header}}</th>
-                            {% endfor %}
-                        </tr>
-                        <tr>
-                            <td>
-                                {{row[0]}}
-                            </td>
-                            <td>
-                                {{row.first_name}}
-                            </td>
                     </table>
                 </div>
             </form>
