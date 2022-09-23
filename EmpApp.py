@@ -107,7 +107,7 @@ def RemoveEmp():
     emp_id = request.form['emp_id']
 
     search_sql = ""
-    remove_sql = ("DELETE FROM Customers WHERE emp_id= %s",emp_id)
+    remove_sql = ("DELETE FROM employee WHERE emp_id= %s",emp_id)
     removeTarget = ""+emp_id
     cursor = db_conn.cursor()
 
@@ -127,24 +127,22 @@ def RemoveEmp():
     return render_template('RemoveEmpOutput.html', name=removeTarget)
 
 
-@app.route("/searchemp", methods=['GET','POST'])
+@app.route("/searchemp")
 def SearchEmp():
     emp_id = request.form['emp_id']
 
-    search_sql =("SELECT * FROM employee WHERE emp_id = %s", emp_id)
+    search_sql =("SELECT * FROM employee WHERE emp_id = %s",emp_id)
     cursor = db_conn.cursor()
 
-    if emp_id == "": 
+    if emp_id =="": 
         return "Please enter Employee ID"
         
     try: 
         cursor.execute(search_sql)
         db_conn.commit()
         row = cursor.fetchone()
-        if row: 
-            return render_template('UpdateEmpOutput.html', headings = headings, row = row)
-        else:
-            return "ID Not Found"
+        return render_template('UpdateEmpOutput.html', headings = headings, row = row)
+
     except Exception as e: 
         print(e)
     finally:
