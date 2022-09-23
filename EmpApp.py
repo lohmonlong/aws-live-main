@@ -161,6 +161,9 @@ def UpdateEmp():
     location = request.form['location']
     # emp_image_file = request.files['emp_image_file']
 
+    print(emp_id,first_name)
+
+
     if emp_id == "": 
         return "Please enter Employee ID"
     elif first_name == "":
