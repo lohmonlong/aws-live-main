@@ -178,9 +178,9 @@ def UpdateEmp():
     try: 
         cursor.execute(insert_sql,(first_name, last_name, pri_skill, location))
         db_conn.commit()
-        emp_name = " "+first_name + " " + last_name
+        emp_name = " "+ first_name + " " + last_name
         print("Successfully Updated")
-        return render_template('GetEmpOutput.html', headings = headings, name = emp_name)
+        return render_template('UpResults.html', name = emp_name)
 
     except Exception as e: 
         print(e)
