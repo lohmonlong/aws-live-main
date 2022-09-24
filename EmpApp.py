@@ -44,15 +44,15 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,%s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
-        return "Please select a file"
+        return "Please select an image file"
 
     try:
 
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location))
+        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, emp_image_file))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
@@ -118,15 +118,15 @@ def RemoveEmp():
         flash("Employee Successfully Removed")
         return render_template('RemoveEmpOutput.html', name = str(removeTarget))
 
-        # s3 = boto3.resource('s3')
-        # s3.Object(bucketname,objectkey).delete() #delete the emp_image
 
-        # client = boto3.client('s3')
-        # response = client.delete_object(
-        #     Bucket =' ',
-        #     Key =' ' #delete object ocean.jpg
-        # )
+        s3 = boto3.resource('s3')
+        s3.Object(bucketname,objectkey).delete() #delete the emp_image
 
+        client = boto3.client('s3')
+        response = client.delete_object(
+            Bucket =' ',
+            Key =' ' #delete object ocean.jpg
+        )
 
     except Exception as e: 
         return (e)
@@ -166,7 +166,7 @@ def UpdateEmp():
     last_name = request.form['last_name']
     pri_skill = request.form['pri_skill']
     location = request.form['location']
-    # emp_image_file = request.files['emp_image_file']
+    emp_image_file = request.files['emp_image_file']
 
     if emp_id == "": 
         return "Please enter Employee ID"
