@@ -1,5 +1,5 @@
 from unittest import result
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, send_file
 from pymysql import connections
 import os
 import boto3
@@ -91,6 +91,7 @@ def ReadEmp():
     read_sql  = "SELECT * FROM employee"
     cursor = db_conn.cursor()
 
+
     try:
         cursor.execute(read_sql)
         db_conn.commit()
@@ -115,11 +116,8 @@ def RemoveEmp():
         cursor.execute(remove_sql,emp_id)
         db_conn.commit()
 
-        flash("Employee Successfully Removed")
-        return render_template('RemoveEmpOutput.html', name = str(removeTarget))
-
         s3 = boto3.resource('s3')
-        s3.Object(bucketname,objectkey).delete() #delete the emp_image
+        s3.Object(bucket,objectkey).delete() #delete the emp_image
 
         client = boto3.client('s3')
         response = client.delete_object(
@@ -131,6 +129,9 @@ def RemoveEmp():
         return (e)
     finally:
         cursor.close()
+
+    flash("Employee Successfully Removed")
+    return render_template('RemoveEmpOutput.html', name = str(removeTarget))
 
 
 @app.route("/searchemp", methods=['GET','POST'])
