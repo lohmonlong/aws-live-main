@@ -23,7 +23,7 @@ db_conn = connections.Connection(
 output = {}
 table = 'employee'
 
-headings=("Employee ID","First Name","Last Name","Primary Skill","Location")
+headings=("Employee ID","First Name","Last Name","Primary Skill","Location", "Image")
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -117,7 +117,6 @@ def RemoveEmp():
 
         flash("Employee Successfully Removed")
         return render_template('RemoveEmpOutput.html', name = str(removeTarget))
-
 
         s3 = boto3.resource('s3')
         s3.Object(bucketname,objectkey).delete() #delete the emp_image
