@@ -177,6 +177,8 @@ def UpdateEmp():
         return "Please enter Primary Skill"
     elif location =="":
         return "Please enter Location"
+    elif emp_image_file ="":
+        return "Please select an Image"
 
     insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s WHERE emp_id=%s")
     cursor = db_conn.cursor()
@@ -185,14 +187,35 @@ def UpdateEmp():
         cursor.execute(insert_sql, (first_name, last_name, pri_skill, location, emp_id))
         db_conn.commit()
         emp_name = " " + first_name + " " + last_name
-        print("Successfully Updated")
-        return render_template('UpResults.html', name = str(emp_name))
+
+        try:
+            emp_image_file_name_in_s3 = "emp-id" + str(emp_id) + "_image_file"
+            s3 = boto3.resource('s3')
+            s3.Bucket(custombucket).put_object(Key = emp_image_file_name_in_s3, Body = emp_image_file)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket = custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None: 
+                s3_location = ''
+            else: 
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                emp_image_file_name_in_s3)
+
+        except Exception as e: 
+            return str(e)
 
     except Exception as e:
         return str(e)
     finally:
         cursor.close()
     
+    print("Update Succesfully")
+    return render_template('UpResults.html', name = emp_name)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
     app.debug = True
