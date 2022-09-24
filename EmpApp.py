@@ -177,7 +177,7 @@ def UpdateEmp():
         return "Please enter Primary Skill"
     elif location =="":
         return "Please enter Location"
-    elif emp_image_file ="":
+    elif emp_image_file == "":
         return "Please select an Image"
 
     insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s WHERE emp_id=%s")
