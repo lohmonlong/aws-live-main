@@ -92,7 +92,6 @@ def ReadEmp():
     read_sql  = "SELECT * FROM employee"
     cursor = db_conn.cursor()
 
-
     try:
         cursor.execute(read_sql)
         db_conn.commit()
