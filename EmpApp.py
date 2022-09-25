@@ -225,7 +225,8 @@ def UpdateEmp():
     print("Update Succesfully")
     return render_template('UpResults.html', name = emp_name)
 
-app.route("/updateprofile/<empid>")
+
+@app.route("/updateprofile/<empid>")
 def updateprofile(empid):
     row = empid
     # select_sql = "SELECT * from employee WHERE emp_id = %s"
