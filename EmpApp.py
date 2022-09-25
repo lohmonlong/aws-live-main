@@ -225,7 +225,7 @@ def updateprofile(empid):
     # cursor = db_conn.cursor()
     # cursor.execute(select_sql, id)
     # row = cursor.fetchone()
-    return render_template('UpdateEmpOutput.html', row=row)
+    return render_template('UpdateEmp.html', row=row)
 
 
 if __name__ == '__main__':
