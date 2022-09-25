@@ -235,7 +235,7 @@ def removeprofile(empid):
     return render_template('RemoveEmp.html', id=id)
 
 @app.route("/leave", methods=['GET','POST'])
-def applyLeave(): 
+def applyLeave():
     emp_id = request.form['emp_id']
     name = request.form['name']
     date = request.form['date']
@@ -270,7 +270,7 @@ def applyLeave():
         cursor.close()
     
     print("Successfully Applied")
-    return render_template('LeaveAppOutput.html', emp_name = str(emp_name))
+    return render_template('LeaveAppOutput.html')
 
 
 if __name__ == '__main__':
