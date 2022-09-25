@@ -1,3 +1,4 @@
+from logging import exception
 from unittest import result
 from flask import Flask, render_template, request, flash, send_file
 from pymysql import connections
@@ -181,14 +182,13 @@ def UpdateEmp():
     elif emp_image_file == "":
         return "Please select an Image"
 
-    insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s, image=%s WHERE emp_id=%s")
-    cursor = db_conn.cursor()
-
     try:
+        insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s, image=%s WHERE emp_id=%s")
+        cursor = db_conn.cursor()
         emp_name = "" + first_name + " " + last_name
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
 
         try:
-            emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
             s3 = boto3.resource('s3')
             s3.Bucket(custombucket).put_object(Key = emp_image_file_name_in_s3, Body = emp_image_file)
             bucket_location = boto3.client('s3').get_bucket_location(Bucket = custombucket)
@@ -207,12 +207,8 @@ def UpdateEmp():
             cursor.execute(insert_sql, (first_name, last_name, pri_skill, location, emp_id, object_url))
             db_conn.commit()
 
-        except Exception as e: 
+        except Exception as e:
             return str(e)
-
-
-    except Exception as e:
-        return str(e)
     finally:
         cursor.close()
     
