@@ -123,7 +123,7 @@ def RemoveEmp():
             key = emp_image_file_name_in_s3
 
         s3 = boto3.resource('s3')
-        s3.delete_object(Bucket= bucket, Key= key)
+        s3.delete_object(Bucket= bucket, Key = key)
 
         remove_sql =("DELETE FROM employee WHERE emp_id= %s")
         cursor.execute(remove_sql,emp_id)
@@ -233,6 +233,44 @@ def updateprofile(empid):
 def removeprofile(empid):
     id = empid
     return render_template('RemoveEmp.html', id=id)
+
+@app.route("/leave", methods=['GET','POST'])
+def applyLeave(): 
+    emp_id = request.form['emp_id']
+    name = request.form['name']
+    date = request.form['date']
+    days = request.form['days']
+    reason = request.form['reason']
+    status = "Approved"
+
+    emp_name = "Apply Name: " + str(name)
+
+    insert_leave = ("INSERT INTO leave VALUES (%s,%s,%s,%s,%s,%s)")
+    cursor = db_conn.cursor()
+
+    if emp_id == "": 
+        return "Please enter Employee ID"
+    elif name  == "":
+        return "Please enter  Name"
+    elif date  == "":
+        return "Please enter date"
+    elif days =="":
+        return "Please enter days"
+    elif reason =="":
+        return "Please enter reason"
+    
+    try:
+        cursor.execute(insert_leave,(emp_id, name, date, days, reason, status))
+        db_conn.commit()
+
+    except Exception as e: 
+        return (e)
+
+    finally:
+        cursor.close()
+    
+    print("Successfully Applied")
+    return render_template('LeaveAppOutput.html', name=emp_name)
 
 
 if __name__ == '__main__':
