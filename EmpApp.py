@@ -220,11 +220,11 @@ def UpdateEmp():
 
 app.route("/updateprofile/<empid>")
 def updateprofile(empid):
-    id = empid
-    select_sql = "SELECT * from employee WHERE emp_id = %s"
-    cursor = db_conn.cursor()
-    cursor.execute(select_sql, id)
-    row = cursor.fetchone()
+    row = empid
+    # select_sql = "SELECT * from employee WHERE emp_id = %s"
+    # cursor = db_conn.cursor()
+    # cursor.execute(select_sql, id)
+    # row = cursor.fetchone()
     return render_template('UpdateEmpOutput.html', row=row)
 
 
