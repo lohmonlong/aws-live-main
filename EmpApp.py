@@ -106,8 +106,7 @@ def ReadEmp():
 
 @app.route("/removeemp", methods=['GET','POST'])
 def RemoveEmp(empid):
-    # emp_id = request.form['emp_id']
-    emp_id = empid
+    emp_id = request.form['emp_id']
 
     removeTarget = "" + emp_id
     search_sql =("SELECT image FROM employee WHERE emp_id = %s")
@@ -233,7 +232,7 @@ def updateprofile(empid):
 @app.route("/removeprofile/<empid>")
 def removeprofile(empid):
     id = empid
-    RemoveEmp(id)
+    return render_template('RemoveEmp.html', id=id)
 
 
 if __name__ == '__main__':
