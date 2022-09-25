@@ -27,8 +27,10 @@
 							<td>{{ row[3] }}</td>
 							<td>{{ row[4] }}</td>
 							<td><img src="{{ row[5] }}" width="100" height="100"></td>
-							<td><a href="RemoveEmp.html/{{row[0]}}">Delete Employee</a></td>
-							<td><a href="UpdateEmp.html/{{row[0]}}">Update Employee</a></td>
+							<td>
+								<a href="RemoveEmp/{{row[0]}}">Delete Employee</a>
+								<a href="UpdateEmp.html?emp_id={{row[0]}}">Update Employee</a>
+							</td>
 						</tr>
 						{% endfor %}
 					</table>
