@@ -118,10 +118,12 @@ def RemoveEmp():
         db_conn.commit()
         row = cursor.fetchone()
         if row: 
-            keypath = row.image
+            emp_id = row.emp_id
+            emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+            key = emp_image_file_name_in_s3
 
         s3 = boto3.resource('s3')
-        s3.delete_object(Bucket= bucket, Key= keypath)
+        s3.delete_object(Bucket= bucket, Key= key)
 
         remove_sql =("DELETE FROM employee WHERE emp_id= %s")
         cursor.execute(remove_sql,emp_id)
