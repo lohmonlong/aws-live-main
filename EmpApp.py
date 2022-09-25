@@ -44,7 +44,7 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,%s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -74,7 +74,7 @@ def AddEmp():
                 custombucket,
                 emp_image_file_name_in_s3)
 
-            cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, emp_image_file, object_url))
+            cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, object_url))
             db_conn.commit()
 
         except Exception as e:
