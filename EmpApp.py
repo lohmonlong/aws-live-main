@@ -108,7 +108,7 @@ def ReadEmp():
 def RemoveEmp():
     emp_id = request.form['emp_id']
 
-    removeTarget = " " + emp_id
+    removeTarget = "" + emp_id
     search_sql =("SELECT image FROM employee WHERE emp_id = %s")
     cursor = db_conn.cursor()
 
@@ -117,10 +117,10 @@ def RemoveEmp():
         db_conn.commit()
         row = cursor.fetchone()
         if row: 
-            Key = row.image
+            keypath = row.image
 
         s3 = boto3.resource('s3')
-        s3.Object(bucket,Key).delete() #delete the emp_image
+        s3.delete_object(Bucket= bucket, Key= keypath)
 
         # client = boto3.client('s3')
         # response = client.delete_object(
