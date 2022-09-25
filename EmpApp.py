@@ -219,8 +219,8 @@ def UpdateEmp():
     return render_template('UpResults.html', name = emp_name)
 
 app.route("/updateprofile/<empid>")
-def updateprofile(emp_id):
-    id = emp_id
+def updateprofile(empid):
+    id = empid
     select_sql = "SELECT * from employee WHERE emp_id = %s"
     cursor = db_conn.cursor()
     cursor.execute(select_sql, id)
