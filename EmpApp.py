@@ -243,34 +243,34 @@ def applyLeave():
     reason = request.form['reason']
     status = "Approved"
 
-    emp_name = "" + name
-
-    insert_leave = ("INSERT INTO leave VALUES (%s,%s,%s,%s,%s,%s)")
+    insert_leave = "INSERT INTO leave VALUES (%s,%s,%s,%s,%s,%s)"
     cursor = db_conn.cursor()
 
-    if emp_id == "": 
-        return "Please enter Employee ID"
-    elif name  == "":
-        return "Please enter  Name"
-    elif date  == "":
-        return "Please enter date"
-    elif days =="":
-        return "Please enter days"
-    elif reason =="":
-        return "Please enter reason"
-    
     try:
-        cursor.execute(insert_leave,(emp_id, name, date, days, reason, status))
-        db_conn.commit()
+        if emp_id == "": 
+            return "Please enter Employee ID"
+        elif name  == "":
+            return "Please enter  Name"
+        elif date  == "":
+            return "Please enter date"
+        elif days =="":
+            return "Please enter days"
+        elif reason =="":
+            return "Please enter reason"
+        
+        try:
+            emp_name = "" + name
+            cursor.execute(insert_leave,(emp_id, name, date, days, reason, status))
+            db_conn.commit()
 
-    except Exception as e: 
-        return (e)
+        except Exception as e: 
+            return (e)
 
     finally:
         cursor.close()
     
     print("Successfully Applied")
-    return render_template('LeaveAppOutput.html')
+    return render_template('LeaveAppOutput.html', emp_name = str(emp_name))
 
 
 if __name__ == '__main__':
