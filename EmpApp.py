@@ -158,7 +158,6 @@ def SearchEmp():
         cursor.close()
 
 
-
 @app.route("/updateemp", methods=['GET','POST'])
 def UpdateEmp():
     emp_id = request.form['emp_id']
@@ -218,6 +217,16 @@ def UpdateEmp():
     
     print("Update Succesfully")
     return render_template('UpResults.html', name = emp_name)
+
+app.route("/updateprofile/<empid>")
+def updateprofile(emp_id):
+    id = emp_id
+    select_sql = "SELECT * from employee WHERE emp_id = %s"
+    cursor = db_conn.cursor()
+    cursor.execute(select_sql, id)
+    row = cursor.fetchone()
+    return render_template('UpdateEmpOutput.html', row=row)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
