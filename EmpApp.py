@@ -108,22 +108,29 @@ def ReadEmp():
 def RemoveEmp():
     emp_id = request.form['emp_id']
 
-    remove_sql =("DELETE FROM employee WHERE emp_id= %s")
     removeTarget = " " + emp_id
+    search_sql =("SELECT image FROM employee WHERE emp_id = %s")
     cursor = db_conn.cursor()
 
     try:
-        cursor.execute(remove_sql,emp_id)
+        cursor.execute(search_sql,emp_id)
         db_conn.commit()
+        row = cursor.fetchone()
+        if row: 
+            Key = row.image
 
         s3 = boto3.resource('s3')
-        s3.Object(bucket,objectkey).delete() #delete the emp_image
+        s3.Object(bucket,Key).delete() #delete the emp_image
 
-        client = boto3.client('s3')
-        response = client.delete_object(
-            Bucket =' ',
-            Key =' ' #delete object ocean.jpg
-        )
+        # client = boto3.client('s3')
+        # response = client.delete_object(
+        #     Bucket =' ',
+        #     Key =' ' #delete object ocean.jpg
+        # )
+
+        remove_sql =("DELETE FROM employee WHERE emp_id= %s")
+        cursor.execute(remove_sql,emp_id)
+        db_conn.commit()
 
     except Exception as e: 
         return (e)
