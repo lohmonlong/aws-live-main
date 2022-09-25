@@ -105,7 +105,7 @@ def ReadEmp():
 
 
 @app.route("/removeemp", methods=['GET','POST'])
-def RemoveEmp(empid):
+def RemoveEmp():
     emp_id = request.form['emp_id']
 
     removeTarget = "" + emp_id
