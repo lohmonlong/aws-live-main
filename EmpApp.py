@@ -229,10 +229,14 @@ def updateprofile(empid):
     row = cursor.fetchone()
     return render_template('UpdateEmpOutput.html', row = row)
 
+
+
 @app.route("/removeprofile/<empid>")
 def removeprofile(empid):
     id = empid
     return render_template('RemoveEmp.html', id=id)
+
+
 
 @app.route("/leave", methods=['GET','POST'])
 def applyLeave():
@@ -259,7 +263,7 @@ def applyLeave():
             return "Please enter reason"
         
         try:
-            emp_name = "" + name
+            emp_name = "" + str(emp_id)
             cursor.execute(insert_leave,(emp_id, name, date, days, reason, status))
             db_conn.commit()
 
@@ -270,7 +274,7 @@ def applyLeave():
         cursor.close()
     
     print("Successfully Applied")
-    return render_template('LeaveAppOutput.html', emp_name = str(emp_name))
+    return render_template('LeaveAppOutput.html', emp_name = emp_name)
 
 
 if __name__ == '__main__':
