@@ -105,8 +105,9 @@ def ReadEmp():
 
 
 @app.route("/removeemp", methods=['GET','POST'])
-def RemoveEmp():
-    emp_id = request.form['emp_id']
+def RemoveEmp(empid):
+    # emp_id = request.form['emp_id']
+    emp_id = empid
 
     removeTarget = "" + emp_id
     search_sql =("SELECT image FROM employee WHERE emp_id = %s")
@@ -121,12 +122,6 @@ def RemoveEmp():
 
         s3 = boto3.resource('s3')
         s3.delete_object(Bucket= bucket, Key= keypath)
-
-        # client = boto3.client('s3')
-        # response = client.delete_object(
-        #     Bucket =' ',
-        #     Key =' ' #delete object ocean.jpg
-        # )
 
         remove_sql =("DELETE FROM employee WHERE emp_id= %s")
         cursor.execute(remove_sql,emp_id)
@@ -229,11 +224,16 @@ def UpdateEmp():
 @app.route("/updateprofile/<empid>")
 def updateprofile(empid):
     row = empid
-    # select_sql = "SELECT * from employee WHERE emp_id = %s"
-    # cursor = db_conn.cursor()
-    # cursor.execute(select_sql, id)
-    # row = cursor.fetchone()
-    return render_template('UpdateEmpOutput.html', row=row)
+    select_sql = "SELECT * from employee WHERE emp_id = %s"
+    cursor = db_conn.cursor()
+    cursor.execute(select_sql, row)
+    row = cursor.fetchone()
+    return render_template('UpdateEmpOutput.html', row = row)
+
+@app.route("/removeprofile/<empid>")
+def removeprofile(empid):
+    id = empid
+    RemoveEmp(id)
 
 
 if __name__ == '__main__':
