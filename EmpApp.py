@@ -168,6 +168,9 @@ def UpdateEmp():
     pri_skill = request.form['pri_skill']
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
+    insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s, image=%s WHERE emp_id=%s")
+    cursor = db_conn.cursor()
+
 
     if emp_id == "": 
         return "Please enter Employee ID"
@@ -183,8 +186,6 @@ def UpdateEmp():
         return "Please select an Image"
 
     try:
-        insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s, image=%s WHERE emp_id=%s")
-        cursor = db_conn.cursor()
         emp_name = "" + first_name + " " + last_name
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
 
