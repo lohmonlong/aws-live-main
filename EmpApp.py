@@ -168,6 +168,7 @@ def UpdateEmp():
     pri_skill = request.form['pri_skill']
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
+
     insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s, image=%s WHERE emp_id=%s")
     cursor = db_conn.cursor()
 
@@ -188,9 +189,9 @@ def UpdateEmp():
     try:
         emp_name = "" + first_name + " " + last_name
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        s3 = boto3.resource('s3')
 
         try:
-            s3 = boto3.resource('s3')
             s3.Bucket(custombucket).put_object(Key = emp_image_file_name_in_s3, Body = emp_image_file)
             bucket_location = boto3.client('s3').get_bucket_location(Bucket = custombucket)
             s3_location = (bucket_location['LocationConstraint'])
@@ -205,7 +206,7 @@ def UpdateEmp():
                 custombucket,
                 emp_image_file_name_in_s3)
 
-            cursor.execute(insert_sql, (first_name, last_name, pri_skill, location, emp_id, object_url))
+            cursor.execute(insert_sql, (first_name, last_name, pri_skill, location, object_url,emp_id))
             db_conn.commit()
 
         except Exception as e:
