@@ -187,10 +187,10 @@ def UpdateEmp():
     try:
         cursor.execute(insert_sql, (first_name, last_name, pri_skill, location, emp_id))
         db_conn.commit()
-        emp_name = " " + first_name + " " + last_name
+        emp_name = "" + first_name + " " + last_name
 
         try:
-            emp_image_file_name_in_s3 = "emp-id" + str(emp_id) + "_image_file"
+            emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
             s3 = boto3.resource('s3')
             s3.Bucket(custombucket).put_object(Key = emp_image_file_name_in_s3, Body = emp_image_file)
             bucket_location = boto3.client('s3').get_bucket_location(Bucket = custombucket)
