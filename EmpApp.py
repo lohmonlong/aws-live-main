@@ -44,7 +44,7 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,%s)"
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,%s, %s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -52,8 +52,6 @@ def AddEmp():
 
     try:
 
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, emp_image_file))
-        db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
@@ -75,6 +73,9 @@ def AddEmp():
                 s3_location,
                 custombucket,
                 emp_image_file_name_in_s3)
+
+            cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, emp_image_file, object_url))
+            db_conn.commit()
 
         except Exception as e:
             return str(e)
@@ -181,12 +182,10 @@ def UpdateEmp():
     elif emp_image_file == "":
         return "Please select an Image"
 
-    insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s WHERE emp_id=%s")
+    insert_sql = ("UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s, image=%s WHERE emp_id=%s")
     cursor = db_conn.cursor()
 
     try:
-        cursor.execute(insert_sql, (first_name, last_name, pri_skill, location, emp_id))
-        db_conn.commit()
         emp_name = "" + first_name + " " + last_name
 
         try:
@@ -206,8 +205,12 @@ def UpdateEmp():
                 custombucket,
                 emp_image_file_name_in_s3)
 
+            cursor.execute(insert_sql, (first_name, last_name, pri_skill, location, emp_id, object_url))
+            db_conn.commit()
+
         except Exception as e: 
             return str(e)
+
 
     except Exception as e:
         return str(e)
