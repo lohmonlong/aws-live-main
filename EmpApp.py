@@ -270,7 +270,7 @@ def applyLeave():
         cursor.close()
     
     print("Successfully Applied")
-    return render_template('LeaveAppOutput.html', name=emp_name)
+    return render_template('LeaveAppOutput.html', emp_name=emp_name)
 
 
 if __name__ == '__main__':
