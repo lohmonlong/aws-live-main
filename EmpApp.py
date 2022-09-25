@@ -247,7 +247,7 @@ def applyLeave():
     reason = request.form['reason']
     status = "Approved"
 
-    insert_leave = "INSERT INTO leaveApp(emp_id, name, date, days, reason, status) VALUES (%s,%s,%s,%s,%s,%s)"
+    insert_leave = "INSERT INTO leaveApp(emp_id, emp_name, date, days, reason, status) VALUES (%s,%s,%s,%s,%s,%s)"
     cursor = db_conn.cursor()
 
     try:
