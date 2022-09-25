@@ -266,16 +266,15 @@ def applyLeave():
             emp_name = "" + str(emp_id)
             cursor.execute(insert_leave,(emp_id, name, date, days, reason, status))
             db_conn.commit()
-            return render_template('LeaveAppOutput.html')
 
         except Exception as e: 
-            return (e)
+            return str(e)
 
     finally:
         cursor.close()
     
-    # print("Successfully Applied")
-    # return render_template('LeaveAppOutput.html', emp_name = emp_name)
+    print("Successfully Applied")
+    return render_template('LeaveAppOutput.html', emp_name = emp_name)
 
 
 if __name__ == '__main__':
