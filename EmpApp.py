@@ -331,7 +331,7 @@ def calculation():
         insert_payroll = "INSERT INTO Payroll VALUES (%s, %s, %s, %s, %s, %s, %s)"
         cursor = db_conn.cursor()
         cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime,netsalary))
-        cursor.commit()
+        db_conn.commit()
 
     except Exception as e: 
         return str(e)
