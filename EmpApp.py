@@ -109,20 +109,14 @@ def ReadEmp():
 @app.route("/removeemp", methods=['GET','POST'])
 def RemoveEmp():
     emp_id = request.form['emp_id']
-
-    search_sql =("SELECT emp_department FROM employee WHERE emp_id = %s")
     cursor = db_conn.cursor()
 
     try:
-        cursor.execute(search_sql,emp_id)
-        db_conn.commit()
-        row = cursor.fetchone()
-        if row: 
-            emp_id = emp_id
-            emp_file = row
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
 
         s3 = boto3.resource('s3')
-        s3.delete_object(Bucket= bucket, Key = emp_file)
+        s3.delete_object(Bucket= bucket, Key = emp_image_file_name_in_s3)
+
 
         remove_sql =("DELETE FROM employee WHERE emp_id= %s")
         cursor.execute(remove_sql,emp_id)
