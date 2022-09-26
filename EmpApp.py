@@ -302,7 +302,7 @@ def removeRemoveleave(leave_id):
     flash("Employee Successfully Removed")
     return render_template('RemoveLeaveOutput.html', name = removeTarget)
 
-@app.route('/payroll', methods='POST') 
+@app.route('/payroll', methods = ['POST']) 
 def calculation():
     emp_id = request.form['emp_id']
     emp_name = request.form['emp_name']
