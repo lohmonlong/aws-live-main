@@ -314,7 +314,7 @@ def calculation():
     socso = float(0.5)
 
     #insert_payroll = "INSERT INTO Payroll(emp_id, emp_name, date, salary, epf, socso, overtime, netsalary) VALUES (%s, %s, %s, %f, %f, %f, %f,%f)"
-    insert_payroll = "INSERT INTO Payroll(emp_id, emp_name, date, salary, epf, socso, overtime, netsalary) VALUES (%s, %s, %s, %s, %s, %s, %s,%s)"
+    insert_payroll = "INSERT INTO Payroll(emp_id, emp_name, date, salary, epf, sosco, overtime, netsalary) VALUES (%s, %s, %s, %s, %s, %s, %s,%s)"
     cursor = db_conn.cursor()
 
     try:
