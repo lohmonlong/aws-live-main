@@ -24,7 +24,9 @@ db_conn = connections.Connection(
 output = {}
 table = 'employee'
 
-headings=("Employee ID","First Name","Last Name","Primary Skill","Location", "Image")
+headings = ("Employee ID","First Name","Last Name","Primary Skill","Location", "Image")
+leave_headings = ("Leave ID","Employee ID","Employee Name","Date","Leave Days","Reason","Status",)
+
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -34,7 +36,6 @@ def home():
 @app.route("/about", methods=['POST'])
 def about():
     return render_template('www.intellipaat.com')
-
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
@@ -275,6 +276,41 @@ def applyLeave():
     
     print("Successfully Applied")
     return render_template('LeaveAppOutput.html', emp_name = emp_name)
+
+@app.route("/RemoveLeave.html") 
+def removeleave():
+    read_sql  = "SELECT * FROM leaveApp"
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(read_sql)
+        db_conn.commit()
+        data = cursor.fetchall()
+
+    except Exception as e: 
+        return str(e)
+    finally:
+        cursor.close()
+
+    return render_template('RemoveLeave.html', leave_headings = leave_headings, data = data)
+
+@app.route("/removeRemove/<leave_id>")
+def removeRemoveleave(leave_id):
+    removeTarget = "" + leave_id
+    remove_sql =("DELETE FROM leaveApp WHERE leave_id= %s")
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(remove_sql,leave_id)
+        db_conn.commit()
+
+    except Exception as e: 
+        return (e)
+    finally:
+        cursor.close()
+
+    flash("Employee Successfully Removed")
+    return render_template('RemoveLeaveOutput.html', name = removeTarget)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leave Information</title>
+</head>
+<center>
+	<font color="black" size="5" style="font-family: avenir">
+
+		<h1 style="color: DodgerBlue">Employee Information</h1>
+
+		<body bgcolor="lightgrey">
+
+				<h2 style="color: grey">Employee Leave Application</h2>
+                <table>
+                    <tr>
+                        {% for header in leave_headings %}
+                        <th>{{header}}</th>
+                        {% endfor %}
+                    </tr>					
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row[0] }}</td> 
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                        <td>{{ row[5] }}</td>
+                        <td>{{ row[6] }}</td>
+                        <td>{{ row[7] }}</td>                  
+                        <td>
+                            <a href="/removeRemove/{{row[0]}}">Delete Leave</a>
+                            
+                            <a href="/updateprofile/{{row[0]}}">Add Leave</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                
+
+
+
+		</body>
+	</font>
+</center>
+</html>
