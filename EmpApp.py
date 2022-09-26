@@ -329,16 +329,17 @@ def calculation():
             return "Please enter overtime"
 
         try:
+            print("First")
             total_salary = salary + overtime
             total_salary = float(total_salary)
             salary = float(salary)
-
+            print("Second")
             totalepf = total_salary * epf
             totalsocso = total_salary * socso
-
+            print("Third")
             netsalary = total_salary - float(totalepf) - float(totalsocso)
             netsalary = float(netsalary)
-
+            print("Fourth")
             cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime, netsalary))
             db_conn.commit()
 
@@ -347,7 +348,7 @@ def calculation():
 
     finally: 
         cursor.close()
-                
+
     flash("Payroll Successfully Add")
     return render_template('PayrollOuput.html', name = emp_name)
 
