@@ -308,12 +308,12 @@ def calculation():
     emp_id = request.form['emp_id']
     emp_name = request.form['emp_name']
     date = request.form['date']
-    salary = request.form['salary']
-    overtime = request.form['overtime']
+    salary = float(request.form['salary'])
+    overtime = float(request.form['overtime'])
     epf = float(0.11)
     socso = float(0.5)
 
-    insert_payroll = "INSERT INTO Payroll(emp_id, emp_name, date, salary, epf, socso, overtime, netsalary) VALUES (%s, %s, %s, %f, %f, %s, %f)"
+    insert_payroll = "INSERT INTO Payroll(emp_id, emp_name, date, salary, epf, socso, overtime, netsalary) VALUES (%s, %s, %s, %f, %f, %f, %f)"
     cursor = db_conn.cursor()
 
     try:
@@ -329,21 +329,16 @@ def calculation():
             return "Please enter overtime"
 
         try:
-            
-            salary = float(salary)
-            overtime = float(overtime)
-            print(type(salary))
-            print(type(overtime))
             total_salary = salary + overtime
             total_salary = float(total_salary)
             salary = float(salary)
-            print("Second")
+            
             totalepf = total_salary * epf
             totalsocso = total_salary * socso
-            print("Third")
+            
             netsalary = total_salary - float(totalepf) - float(totalsocso)
             netsalary = float(netsalary)
-            print("Fourth")
+            
             cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime, netsalary))
             db_conn.commit()
 
