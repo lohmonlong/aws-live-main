@@ -313,7 +313,6 @@ def calculation():
     epf = float(0.11)
     socso = float(0.5)
 
-    #insert_payroll = "INSERT INTO Payroll(emp_id, emp_name, date, salary, epf, socso, overtime, netsalary) VALUES (%s, %s, %s, %f, %f, %f, %f,%f)"
     insert_payroll = "INSERT INTO Payroll(emp_id, emp_name, date, salary, epf, sosco, overtime, netsalary) VALUES (%s, %s, %s, %s, %s, %s, %s,%s)"
     cursor = db_conn.cursor()
 
@@ -351,7 +350,6 @@ def calculation():
 
     flash("Payroll Successfully Add")
     return render_template('PayrollOuput.html', name = emp_name)
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
