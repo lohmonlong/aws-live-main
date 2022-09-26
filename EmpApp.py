@@ -312,7 +312,7 @@ def calculation():
     epf = 0.11
     socso = 0.5 
 
-    insert_payroll = "INSERT INTO Payroll VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    insert_payroll = "INSERT INTO Payroll VALUES (%s, %s, %f, %f, %f, %s, %f)"
     cursor = db_conn.cursor()
 
     try:
@@ -328,9 +328,9 @@ def calculation():
             return "Please enter overtime"
 
         try:
-            salary1 = salary * epf 
-            salary2 = salary * socso 
-            netsalary = salary - salary1 - salary2 + overtime
+            salary1 = float(salary * epf)
+            salary2 = float(salary * socso )
+            netsalary = float(salary - salary1 - salary2 + overtime)
 
             cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime,netsalary))
             db_conn.commit()
