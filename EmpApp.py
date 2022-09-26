@@ -110,14 +110,13 @@ def ReadEmp():
 def RemoveEmp():
     emp_id = request.form['emp_id']
 
-    removeTarget = "" + emp_id
-    search_sql =("SELECT image FROM employee WHERE emp_id = %s")
+    # search_sql =("SELECT image FROM employee WHERE emp_id = %s")
     cursor = db_conn.cursor()
 
     try:
-        cursor.execute(search_sql,emp_id)
-        db_conn.commit()
-        row = cursor.fetchone()
+        # cursor.execute(search_sql,emp_id)
+        # db_conn.commit()
+        # row = cursor.fetchone()
         # if row: 
         #     emp_id = row.emp_id
         #     emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
@@ -136,7 +135,7 @@ def RemoveEmp():
         cursor.close()
 
     flash("Employee Successfully Removed")
-    return render_template('RemoveEmpOutput.html', name = removeTarget)
+    return render_template('RemoveEmpOutput.html', name = emp_id)
 
 
 @app.route("/searchemp", methods=['GET','POST'])
