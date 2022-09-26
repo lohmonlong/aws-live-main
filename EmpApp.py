@@ -114,7 +114,7 @@ def RemoveEmp():
     try:
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
 
-        s3 = boto3.resource('s3')
+        s3 = boto3.client('s3')
         s3.delete_object(Bucket= bucket, Key = emp_image_file_name_in_s3)
 
         remove_sql =("DELETE FROM employee WHERE emp_id= %s")
