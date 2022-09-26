@@ -117,13 +117,12 @@ def RemoveEmp():
         s3 = boto3.resource('s3')
         s3.delete_object(Bucket= bucket, Key = emp_image_file_name_in_s3)
 
-
         remove_sql =("DELETE FROM employee WHERE emp_id= %s")
         cursor.execute(remove_sql,emp_id)
         db_conn.commit()
 
     except Exception as e: 
-        return (e)
+        return str(e)
     finally:
         cursor.close()
 
