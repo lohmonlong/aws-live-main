@@ -329,9 +329,11 @@ def calculation():
             return "Please enter overtime"
 
         try:
-            print("First")
+            
             salary = float(salary)
             overtime = float(overtime)
+            print(type(salary))
+            print(type(overtime))
             total_salary = salary + overtime
             total_salary = float(total_salary)
             salary = float(salary)
