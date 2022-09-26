@@ -3,7 +3,7 @@ from unittest import result
 from flask import Flask, render_template, request, flash, send_file
 from pymysql import connections
 import os
-import boto3
+import boto3 
 from config import *
 # from tables import Results
 
@@ -110,20 +110,19 @@ def ReadEmp():
 def RemoveEmp():
     emp_id = request.form['emp_id']
 
-    # search_sql =("SELECT image FROM employee WHERE emp_id = %s")
+    search_sql =("SELECT emp_department FROM employee WHERE emp_id = %s")
     cursor = db_conn.cursor()
 
     try:
-        # cursor.execute(search_sql,emp_id)
-        # db_conn.commit()
-        # row = cursor.fetchone()
-        # if row: 
-        #     emp_id = row.emp_id
-        #     emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
-        #     key = emp_image_file_name_in_s3
+        cursor.execute(search_sql,emp_id)
+        db_conn.commit()
+        row = cursor.fetchone()
+        if row: 
+            emp_id = emp_id
+            emp_file = row
 
-        # s3 = boto3.resource('s3')
-        # s3.delete_object(Bucket= bucket, Key = key)
+        s3 = boto3.resource('s3')
+        s3.delete_object(Bucket= bucket, Key = emp_file)
 
         remove_sql =("DELETE FROM employee WHERE emp_id= %s")
         cursor.execute(remove_sql,emp_id)
