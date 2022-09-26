@@ -9,8 +9,13 @@
 		<h1 style="color: DodgerBlue">Update Employee Database</h1>
 
 		<body bgcolor="lightgrey">
-            <h1>Payroll Inserted</h1>
-            <p>{{ name }}</p>
+			<form action="/removePayroll/{{name}}" method="POST">
+				<h1>Payroll Inserted</h1>
+				<p>{{ name }}</p>
+				<p>{{ target }}</p>
+		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Delete</button>
+
+			</form>
     
 
 <a href="/about">About Us</a>

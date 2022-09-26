@@ -351,6 +351,25 @@ def calculation():
     flash("Payroll Successfully Add")
     return render_template('PayrollOutput.html', name = emp_name)
 
+@app.route('/removePayroll/<name>', methods = ['POST']) 
+def removepayroll(name):
+    remove_sql =("DELETE FROM Payroll WHERE emp_name = %s")
+    cursor = db_conn.cursor()
+    removeTarget = "Removed " + name 
+
+    try: 
+        cursor.execute(remove_sql, name)
+        db_conn.commit()
+
+    except Exception as e: 
+        return str(e)
+
+    finally:
+        cursor.close()
+    return render_template("PayrollOutput.html", target = removeTarget)
+
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
     app.debug = True
