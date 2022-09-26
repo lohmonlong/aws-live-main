@@ -349,7 +349,7 @@ def calculation():
         cursor.close()
 
     flash("Payroll Successfully Add")
-    return render_template('PayrollOuput.html', name = emp_name)
+    return render_template('PayrollOutput.html', name = emp_name)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
