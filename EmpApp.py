@@ -309,7 +309,7 @@ def calculation():
     emp_name = request.form['emp_name']
     date = request.form['date']
     salary = float(request.form['salary'])
-    overtime = request.form['overtime']
+    overtime = float(request.form['overtime'])
     epf = float(0.11)
     socso = float(0.5)
 
