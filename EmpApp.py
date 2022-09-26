@@ -302,6 +302,7 @@ def removeRemoveleave(leave_id):
     flash("Employee Successfully Removed")
     return render_template('RemoveLeaveOutput.html', name = removeTarget)
 
+
 @app.route('/payroll', methods = ['POST']) 
 def calculation():
     emp_id = request.form['emp_id']
@@ -309,10 +310,10 @@ def calculation():
     date = request.form['date']
     salary = request.form['salary']
     overtime = request.form['overtime']
-    epf = 0.11
-    socso = 0.5 
+    epf = float(0.11)
+    socso = float(0.5)
 
-    insert_payroll = "INSERT INTO Payroll VALUES (%s, %s, %f, %f, %f, %s, %f)"
+    insert_payroll = "INSERT INTO Payroll(emp_id, emp_name, date, salary, epf, socso, overtime, netsalary) VALUES (%s, %s, %s, %f, %f, %s, %f)"
     cursor = db_conn.cursor()
 
     try:
@@ -328,11 +329,12 @@ def calculation():
             return "Please enter overtime"
 
         try:
-            salary1 = float(salary) * float(epf)
-            salary2 = float(salary) * float(socso)
-            netsalary = float(salary) - salary1 - salary2 + float(overtime)
+            salary = float(salary)
+            salary1 = salary * epf
+            salary2 = salary * socso
+            netsalary = salary - salary1 - salary2 + float(overtime)
 
-            cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime,netsalary))
+            cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime, netsalary))
             db_conn.commit()
 
         except Exception as e: 
