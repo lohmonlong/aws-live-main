@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Employee Information</title>
+</head>
+<center>
+	<font color="black" size="4" style="font-family: avenir">
+
+		<h1 style="color: DodgerBlue">Employee Database</h1>
+
+		<body bgcolor="lightgrey">
+
+			<form action="/payroll" autocomplete="on" method = "POST" enctype="multipart/form-data">
+
+				<button type="submit" formaction="/getemp" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br>
+
+		  		Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp_id" autofocus size="40"><br><br>
+
+		  		Employee Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="emp_name" ><br><br>
+
+		  		Date:<br> <input style="height:25px;font-size:14pt;color:grey;" type="date" name="date"><br><br>
+
+		  		Basic Salary:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="salary"><br><br>
+
+		  		EPF: 11%<br><br>
+
+		  		Socso: 0.5% <br><br>
+
+                Overtime:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="overtime"><br><br>
+
+		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">UPDATE DATABASE</button>
+
+			</form>
+			<a href="/">Home</a>
+			<a href="/reademp">View</a>
+			<a href="/removeemp">Remove</a>
+			<a href="/about">About Us</a>
+		</body>
+
+	</font>
+</center>
+</html>

@@ -1,4 +1,5 @@
 from logging import exception
+from sqlite3 import Cursor
 from unittest import result
 from flask import Flask, render_template, request, flash, send_file
 from pymysql import connections
@@ -228,7 +229,6 @@ def removeprofile(empid):
     return render_template('RemoveEmp.html', id=id)
 
 
-
 @app.route("/leave", methods=['GET','POST'])
 def applyLeave():
     emp_id = request.form['emp_id']
@@ -301,6 +301,44 @@ def removeRemoveleave(leave_id):
 
     flash("Employee Successfully Removed")
     return render_template('RemoveLeaveOutput.html', name = removeTarget)
+
+@app.route('/payroll', methods='POST') 
+def calculation():
+    emp_id = request.form['emp_id']
+    emp_name = request.form['emp_name']
+    date = request.form['date']
+    salary = request.form['salary']
+    overtime = request.form['overtime']
+    epf = 0.11
+    socso = 0.5 
+
+    if emp_id == "": 
+        return "Please enter Employee ID"
+    elif emp_name  == "":
+        return "Please enter  Name"
+    elif date  == "":
+        return "Please enter date"
+    elif salary =="":
+        return "Please enter basic salary"
+    elif overtime =="":
+        return "Please enter overtime"
+
+    try:
+        salary1 = salary * epf 
+        salary2 = salary * socso 
+        netsalary = salary - salary1 - salary2 + overtime
+
+        insert_payroll = "INSERT INTO Payroll VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        cursor = db_conn.cursor()
+        cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime,netsalary))
+        cursor.commit()
+
+    except Exception as e: 
+        return str(e)
+
+    finally: 
+        cursor.close()
+    return render_template('PayrollOuput.html', name = emp_name)
 
 
 if __name__ == '__main__':
