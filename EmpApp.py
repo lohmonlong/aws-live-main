@@ -322,15 +322,15 @@ def calculation():
             return "Please enter  Name"
         elif date  == "":
             return "Please enter date"
-        elif salary =="":
+        elif salary == "":
             return "Please enter basic salary"
-        elif overtime =="":
+        elif overtime == "":
             return "Please enter overtime"
 
         try:
-            salary1 = float(salary * epf)
-            salary2 = float(salary * socso )
-            netsalary = float(salary - salary1 - salary2 + overtime)
+            salary1 = float( salary) * float(epf)
+            salary2 = float( salary )* float(socso)
+            netsalary = salary - salary1 - salary2 + overtime
 
             cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime,netsalary))
             db_conn.commit()
