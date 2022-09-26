@@ -295,7 +295,7 @@ def removeRemoveleave(leave_id):
         db_conn.commit()
 
     except Exception as e: 
-        return (e)
+        return str(e)
     finally:
         cursor.close()
 
@@ -312,32 +312,36 @@ def calculation():
     epf = 0.11
     socso = 0.5 
 
-    if emp_id == "": 
-        return "Please enter Employee ID"
-    elif emp_name  == "":
-        return "Please enter  Name"
-    elif date  == "":
-        return "Please enter date"
-    elif salary =="":
-        return "Please enter basic salary"
-    elif overtime =="":
-        return "Please enter overtime"
+    insert_payroll = "INSERT INTO Payroll VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    cursor = db_conn.cursor()
 
     try:
-        salary1 = salary * epf 
-        salary2 = salary * socso 
-        netsalary = salary - salary1 - salary2 + overtime
+        if emp_id == "": 
+            return "Please enter Employee ID"
+        elif emp_name  == "":
+            return "Please enter  Name"
+        elif date  == "":
+            return "Please enter date"
+        elif salary =="":
+            return "Please enter basic salary"
+        elif overtime =="":
+            return "Please enter overtime"
 
-        insert_payroll = "INSERT INTO Payroll VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        cursor = db_conn.cursor()
-        cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime,netsalary))
-        db_conn.commit()
+        try:
+            salary1 = salary * epf 
+            salary2 = salary * socso 
+            netsalary = salary - salary1 - salary2 + overtime
 
-    except Exception as e: 
-        return str(e)
+            cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime,netsalary))
+            db_conn.commit()
+
+        except Exception as e: 
+            return str(e)
 
     finally: 
         cursor.close()
+        
+    flash("Payroll Successfully Add")
     return render_template('PayrollOuput.html', name = emp_name)
 
 
