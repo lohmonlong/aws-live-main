@@ -330,7 +330,7 @@ def calculation():
 
         try:
             total_salary = salary + overtime
-            # float(total_salary)
+            total_salary = float(total_salary)
             totalepf = total_salary * epf
             totalsocso = total_salary * socso
             netsalary = total_salary - float(totalepf) - float(totalsocso)
