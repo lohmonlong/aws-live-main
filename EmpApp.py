@@ -331,10 +331,14 @@ def calculation():
         try:
             total_salary = salary + overtime
             total_salary = float(total_salary)
+            salary = float(salary)
+
             totalepf = total_salary * epf
             totalsocso = total_salary * socso
+
             netsalary = total_salary - float(totalepf) - float(totalsocso)
             netsalary = float(netsalary)
+            
 
             cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime, netsalary))
             db_conn.commit()
