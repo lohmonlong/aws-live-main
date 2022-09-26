@@ -305,7 +305,7 @@ def removeRemoveleave(leave_id):
 
 @app.route('/payroll', methods = ['POST']) 
 def calculation():
-    emp_id = request.form['emp_id']
+    emp_id = int(request.form['emp_id'])
     emp_name = request.form['emp_name']
     date = request.form['date']
     salary = float(request.form['salary'])
