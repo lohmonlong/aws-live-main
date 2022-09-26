@@ -338,20 +338,18 @@ def calculation():
 
             netsalary = total_salary - float(totalepf) - float(totalsocso)
             netsalary = float(netsalary)
-            flash("Salary:"+salary, "Netsalary:"+netsalary, "EPF:"+totalepf, "Socso:"+totalsocso)
-            return render_template("PayrollOutput.html")
 
-            # cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime, netsalary))
-            # db_conn.commit()
+            cursor.execute(insert_payroll, (emp_id, emp_name, date, salary, epf, socso, overtime, netsalary))
+            db_conn.commit()
 
         except Exception as e: 
             return str(e)
 
     finally: 
         cursor.close()
-        
-    # flash("Payroll Successfully Add")
-    # return render_template('PayrollOuput.html', name = emp_name)
+                
+    flash("Payroll Successfully Add")
+    return render_template('PayrollOuput.html', name = emp_name)
 
 
 if __name__ == '__main__':
